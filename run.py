@@ -1,5 +1,18 @@
 import os
+
 from flask import Flask, render_template
+from dotenv import load_dotenv
+from pymongo.mongo_client import MongoClient
+
+
+
+# Connect to mongodb cluster
+client = MongoClient('MONGODB_URI')
+
+# List all the databases in the cluster:
+for slang_words in itscool():
+	print(slang_words)
+
 
 
 app = Flask(__name__)
