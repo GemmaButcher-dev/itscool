@@ -1,21 +1,33 @@
 import os
 
 from flask import Flask, render_template
+from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
+if os.path.exists("env.py"):
+    import env
 
+MONGODB_URI = os.environ["MONGO_URI"]
 
 
 # Connect to mongodb cluster
-client = MongoClient('MONGODB_URI')
+client = MongoClient(MONGODB_URI)
+
+for db_info in client.list_database_names():
+   print(db_info)
 
 # List all the databases in the cluster:
-for slang_words in itscool():
-	print(slang_words)
+# for slang_words in itscool():
+# 	print(slang_words)
 
 
 
 app = Flask(__name__)
+
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
+
+mongo =PyMongo(app)
 
 
 @app.route("/")
